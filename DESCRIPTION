@@ -1,12 +1,14 @@
 Package: mumhquarterly
-Title: What the Package Does (One Line, Title Case)
+Title: Medicines Used in Mental Health Quarterly RAP
 Version: 0.0.0.9000
 Authors@R: 
-    person("First", "Last", , "first.last@example.com", role = c("aut", "cre"),
-           comment = c(ORCID = "YOUR-ORCID-ID"))
-Description: What the package does (one paragraph).
-License: `use_mit_license()`, `use_gpl3_license()` or friends to pick a
-    license
+    person(given = "NHSBSA Official Statistics",
+           email = "nhsbsa.statistics@nhs.net",
+           role = c("aut", "cre"))
+Description: This packaged hosts all of the necessary functions for the MUMH 
+  quarterly RAP to function correctly, including data extraction, manipulation,
+  and presentation functions.
+License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
