@@ -1,7 +1,6 @@
 #' Easy helper for 'createWB'
 #'
 #' Create base workbook 'wb' and add sheets required
-#' R `%in%` operator.
 #'
 #' @param filepath the filepath to save the workbook to
 #' @param sheets a list of sheet names require

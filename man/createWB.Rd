@@ -13,7 +13,6 @@ createWB(filepath, sheets)
 }
 \description{
 Create base workbook 'wb' and add sheets required
-R \code{\%in\%} operator.
 }
 \examples{
 sheetNames <- c("test1","test2","test3")
