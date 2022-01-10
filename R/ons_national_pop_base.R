@@ -3,7 +3,7 @@
 #' This function gets the latest mid-year population estimates from ONS,
 #' and imports it in a form to be used within MUMH Quarterly package.
 #'
-#' @param url The url for the population data to be imported. Defaults to NULL.
+#' @param url The url for the population data to be imported. Defaults to NULL
 #'
 #' @keywords
 #' @export
