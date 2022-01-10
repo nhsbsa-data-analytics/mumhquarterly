@@ -1,4 +1,4 @@
-#' Easy helper for 'createWB'
+#' Easy helper for 'create_wb'
 #'
 #' Create base workbook 'wb' and add sheets required
 #'
@@ -11,9 +11,9 @@
 #'
 #' @examples
 #' sheetNames <- c("test1","test2","test3")
-#' createWB("C:/test.xlsx", sheetNames)
+#' create_wb("C:/test.xlsx", sheetNames)
 
-createWB <- function(
+create_wb <- function(
   filepath, 
   sheets
 ) {
