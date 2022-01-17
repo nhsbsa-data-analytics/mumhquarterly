@@ -12,6 +12,8 @@
 #'
 #' @param area The geographical area/s to filter population by, must be a vector
 #'
+#' @import dplyr, data.table
+#'
 #' @export
 #'
 #' @examples
