@@ -1,8 +1,3 @@
-library("devtools")
-library(roxygen2)
-library(data.table)
-library(dplyr)
-
 #' National population reference file import function, with helper function
 #'
 #' This function gets the latest mid-year population estimates from ONS,
@@ -16,15 +11,15 @@ library(dplyr)
 #' @param year The year/s to filter population by, must be a vector
 #'
 #' @param area The geographical area/s to filter population by, must be a vector
-#' .
-#' @keywords
+#'
 #' @export
+#'
 #' @examples
 #' helper.ons_national_pop()
-#' ons_national_pop(, year = c(2020), area = c("ENPOP))
+#' ons_national_pop(, year = c(2020), area = c("ENPOP"))
 #' ons_national_pop(, year = c(2015, 2017, 2019), area = c("ENPOP", "EWPOP")
+#'
 #' @source \url{https://www.ons.gov.uk/peoplepopulationandcommunity/populationandmigration/populationestimates/datasets/populationestimatestimeseriesdataset/current/}
-#' ()
 
 
 #Optional helper function to run before main function call
