@@ -2,4 +2,5 @@
 
 export("%!in%")
 export(create_wb)
+export(write_sheet)
 import(openxlsx)
