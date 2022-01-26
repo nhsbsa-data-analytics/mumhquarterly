@@ -2,7 +2,6 @@
 #'
 #' Create base workbook 'wb' and add sheets required
 #'
-#' @param filepath the filepath to save the workbook to
 #' @param sheets a list of sheet names require
 #'
 #' @import openxlsx
@@ -14,35 +13,30 @@
 #' create_wb("C:/test.xlsx", sheetNames)
 
 create_wb <- function(
-  filepath,
   sheets
 ) {
-  ##create workbook with relevant named tabs
+  ##create workbook with relevant named sheets
   wb <- openxlsx::createWorkbook()
-
-  ##assign wb to use in global environment for future functions
-  assign("wb", wb, envir=globalenv())
 
   openxlsx::addWorksheet(wb, sheetName = "Cover_sheet")
   openxlsx::addWorksheet(wb, sheetName = "Metadata")
 
-  #remove gridlines on base tabs
+  #remove gridlines on base sheets
   openxlsx::showGridLines(wb, sheet = "Cover_sheet", showGridLines = FALSE)
   openxlsx::showGridLines(wb, sheet = "Metadata", showGridLines = FALSE)
 
-  for(i in 1:length(sheets)) {
-    openxlsx::addWorksheet(wb, sheetName = sheets[i])
+  for (i in sheets) {
+    openxlsx::addWorksheet(wb, sheetName = i)
   }
 
-  #remove gridlines on other tabs
-  for(j in 1:length(sheets)) {
-    openxlsx::showGridLines(wb, sheet = sheets[j], showGridLines = FALSE)
+  #remove gridlines on other sheets
+  for (j in sheets) {
+    openxlsx::showGridLines(wb, sheet = j, showGridLines = FALSE)
   }
 
   #set font to Arial
   openxlsx::modifyBaseFont(wb, fontName = "Arial", fontSize = 10)
 
-  openxlsx::saveWorkbook(wb,
-                         file = filepath,
-                         overwrite = TRUE)
+  #return as object to use in global environment
+  return(wb)
 }

@@ -4,9 +4,11 @@
 \alias{write_sheet}
 \title{Easy helper for 'write_sheet'}
 \usage{
-write_sheet(filepath, sheetname, title, notes, dataset)
+write_sheet(workbook, filepath, sheetname, title, notes, dataset)
 }
 \arguments{
+\item{workbook}{the name of the workbook object created using the create_wb function}
+
 \item{filepath}{the file path to save the workbook to}
 
 \item{sheetname}{the name of the blank sheet to write to}
@@ -21,7 +23,8 @@ write_sheet(filepath, sheetname, title, notes, dataset)
 Write data to selected sheet of base 'wb' created using create_wb function
 }
 \examples{
-write_sheet("C:\\\\test.xlsx",
+write_sheet(myworkbook,
+"C:/test.xlsx",
 "test1",
 "title1",
 c("note1", "note2", "note3", "note4"),
