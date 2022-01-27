@@ -18,20 +18,19 @@ create_wb <- function(
   ##create workbook with relevant named sheets
   wb <- openxlsx::createWorkbook()
 
-  openxlsx::addWorksheet(wb, sheetName = "Cover_sheet")
-  openxlsx::addWorksheet(wb, sheetName = "Metadata")
+  openxlsx::addWorksheet(wb,
+                         sheetName = "Cover_sheet",
+                         gridLines = openxlsx_getOp("gridLines", FALSE))
 
-  #remove gridlines on base sheets
-  openxlsx::showGridLines(wb, sheet = "Cover_sheet", showGridLines = FALSE)
-  openxlsx::showGridLines(wb, sheet = "Metadata", showGridLines = FALSE)
+  openxlsx::addWorksheet(wb,
+                         sheetName = "Metadata",
+                         gridLines = openxlsx_getOp("gridLines", FALSE))
+
 
   for (i in sheets) {
-    openxlsx::addWorksheet(wb, sheetName = i)
-  }
-
-  #remove gridlines on other sheets
-  for (j in sheets) {
-    openxlsx::showGridLines(wb, sheet = j, showGridLines = FALSE)
+    openxlsx::addWorksheet(wb,
+                           sheetName = i
+                           gridLines = openxlsx_getOp("gridLines", FALSE))
   }
 
   #set font to Arial
