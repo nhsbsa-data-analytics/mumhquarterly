@@ -4,11 +4,9 @@
 \alias{create_wb}
 \title{Easy helper for 'create_wb'}
 \usage{
-create_wb(filepath, sheets)
+create_wb(sheets)
 }
 \arguments{
-\item{filepath}{the filepath to save the workbook to}
-
 \item{sheets}{a list of sheet names require}
 }
 \description{
