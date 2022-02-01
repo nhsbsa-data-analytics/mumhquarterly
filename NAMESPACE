@@ -3,5 +3,6 @@
 export("%!in%")
 export(available_data)
 export(create_wb)
+export(write_sheet)
 import(dplyr)
 import(openxlsx)
