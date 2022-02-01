@@ -8,7 +8,12 @@ Authors@R:
 Description: This packaged hosts all of the necessary functions for the MUMH 
   quarterly RAP to function correctly, including data extraction, manipulation,
   and presentation functions.
-Imports: openxlsx
+Imports: 
+  openxlsx,
+  dplyr,
+  DBI
+Remotes:
+  nhsbsa-data-analytics/nhsbsaR
 License: MIT + file LICENSE
 Encoding: UTF-8
 Roxygen: list(markdown = TRUE)
