@@ -28,7 +28,7 @@
 
 available_data <- function(database) {
 
-  # build connection to NSHBSA DWH using function from nhsbsaR package
+  # build connection to NHSBSA DWH using function from nhsbsaR package
   # override default behaviour or username and password args
  con <-  nhsbsaR::con_nhsbsa(
    database = database,
