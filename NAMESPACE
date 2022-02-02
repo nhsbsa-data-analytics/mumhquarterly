@@ -2,4 +2,8 @@
 
 export("%!in%")
 export(create_wb)
+export(gov_hol)
+export(ons_national_pop)
+import("dplyr,")
+import(data.table)
 import(openxlsx)

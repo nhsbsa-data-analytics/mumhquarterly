@@ -1,4 +1,4 @@
-#' National population reference file import function, with helper function
+#' National population reference file import function
 #'
 #' This function gets the latest mid-year population estimates from ONS,
 #' and imports it in a form to be used within MUMH Quarterly package.
