@@ -22,7 +22,6 @@
 #' mtcars)
 
 write_sheet <-  function(workbook,
-                         filepath,
                          sheetname,
                          title,
                          notes,
@@ -103,10 +102,4 @@ write_sheet <-  function(workbook,
                           sheet = sheetname,
                           rows = (length(notes_list) + 3),
                           heights = 29)
-
-
-  #save workbook
-  openxlsx::saveWorkbook(wb,
-                         file = filepath,
-                         overwrite = TRUE)
 }

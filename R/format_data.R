@@ -27,13 +27,25 @@
 #' "#,###",
 #' "C:/test.xlsx"
 #' )
-
+#' format_data(myworkbook,
+#' "test1",
+#' 1,
+#' "right",
+#' "#,###.00",
+#' "C:/test.xlsx"
+#' )
+#' format_data(myworkbook,
+#' "test1",
+#' 1,
+#' "left",
+#' "",
+#' "C:/test.xlsx"
+#' )
 format_data <- function(workbook,
                         sheetname,
                         column,
                         alignment,
-                        number_format,
-                        filepath) {
+                        number_format) {
   
   #build function to convert excel column letter to number
   excel_column_to_numeric <- function(column_letter){
@@ -101,9 +113,4 @@ format_data <- function(workbook,
     column_number,
     gridExpand = TRUE
   )
-  
-  #save workbook
-  openxlsx::saveWorkbook(wb,
-                         file = filepath,
-                         overwrite = TRUE)
 }
