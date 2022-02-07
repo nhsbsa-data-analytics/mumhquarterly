@@ -22,21 +22,21 @@
 #' @examples
 #' format_data(myworkbook,
 #' "test1",
-#' 1,
+#' "A",
 #' "right",
 #' "#,###",
 #' "C:/test.xlsx"
 #' )
 #' format_data(myworkbook,
 #' "test1",
-#' 1,
+#' c("A", "B", "C"),
 #' "right",
 #' "#,###.00",
 #' "C:/test.xlsx"
 #' )
 #' format_data(myworkbook,
 #' "test1",
-#' 1,
+#' C("D", "AA", "X"),
 #' "left",
 #' "",
 #' "C:/test.xlsx"
@@ -65,6 +65,7 @@ format_data <- function(workbook,
   #vectorise to allow multiple columns
   excel_column_to_numeric <- Vectorize(excel_column_to_numeric)
   
+  #convert column(s) to numeric values
   column_number <- excel_column_to_numeric(column)
   
   #name workbook
