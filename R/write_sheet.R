@@ -15,7 +15,6 @@
 #'
 #' @examples
 #' write_sheet(myworkbook,
-#' "C:/test.xlsx",
 #' "test1",
 #' "title1",
 #' c("note1", "note2", "note3", "note4"),

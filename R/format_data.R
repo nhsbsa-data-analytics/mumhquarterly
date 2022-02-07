@@ -24,22 +24,19 @@
 #' "test1",
 #' "A",
 #' "right",
-#' "#,###",
-#' "C:/test.xlsx"
+#' "#,###"
 #' )
 #' format_data(myworkbook,
 #' "test1",
 #' c("A", "B", "C"),
 #' "right",
-#' "#,###.00",
-#' "C:/test.xlsx"
+#' "#,###.00"
 #' )
 #' format_data(myworkbook,
 #' "test1",
 #' C("D", "AA", "X"),
 #' "left",
-#' "",
-#' "C:/test.xlsx"
+#' ""
 #' )
 format_data <- function(workbook,
                         sheetname,
