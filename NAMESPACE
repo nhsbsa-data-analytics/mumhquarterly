@@ -3,7 +3,6 @@
 export("%!in%")
 export(available_data)
 export(create_wb)
-export(excel_column_to_numeric)
 export(format_data)
 export(write_sheet)
 import(dplyr)

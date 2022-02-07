@@ -11,7 +11,7 @@ format_data(workbook, sheetname, column, alignment, number_format, filepath)
 
 \item{sheetname}{the name of the sheet to apply style to}
 
-\item{column}{the numeric values of the column or columns you wish to apply the style to}
+\item{column}{the excel column letter(s) you wish to apply the style to eg. "F" or c("A", "B")}
 
 \item{alignment}{Horizontal alignment of cell contents
 \itemize{
@@ -27,4 +27,13 @@ format_data(workbook, sheetname, column, alignment, number_format, filepath)
 }
 \description{
 Format data on selected sheet of base 'wb' created using create_wb function
+}
+\examples{
+format_data(myworkbook,
+"test1",
+1,
+"right",
+"#,###",
+"C:/test.xlsx"
+)
 }
