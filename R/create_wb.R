@@ -29,7 +29,7 @@ create_wb <- function(
 
   for (i in sheets) {
     openxlsx::addWorksheet(wb,
-                           sheetName = i
+                           sheetName = i,
                            gridLines = openxlsx_getOp("gridLines", FALSE))
   }
 
