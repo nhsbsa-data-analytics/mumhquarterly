@@ -11,7 +11,8 @@ Description: This packaged hosts all of the necessary functions for the MUMH
 Imports: 
   openxlsx,
   dplyr,
-  DBI
+  DBI,
+  data.table
 Remotes:
   nhsbsa-data-analytics/nhsbsaR
 License: MIT + file LICENSE
