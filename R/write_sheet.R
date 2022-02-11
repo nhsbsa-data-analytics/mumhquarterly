@@ -3,7 +3,6 @@
 #' Write data to selected sheet of base 'wb' created using create_wb function
 #'
 #' @param workbook the name of the workbook object created using the create_wb function
-#' @param filepath the file path to save the workbook to
 #' @param sheetname the name of the blank sheet to write to
 #' @param title the title of the sheet which will go into cell A1
 #' @param notes a list object of the notes to be included on the sheet

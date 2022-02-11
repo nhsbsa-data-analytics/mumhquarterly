@@ -4,7 +4,7 @@
 \alias{format_data}
 \title{Easy helper for 'format_data'}
 \usage{
-format_data(workbook, sheetname, column, alignment, number_format, filepath)
+format_data(workbook, sheetname, column, alignment, number_format)
 }
 \arguments{
 \item{workbook}{the name of the workbook object created using the create_wb function}
@@ -31,9 +31,20 @@ Format data on selected sheet of base 'wb' created using create_wb function
 \examples{
 format_data(myworkbook,
 "test1",
-1,
+"A",
 "right",
-"#,###",
-"C:/test.xlsx"
+"#,###"
+)
+format_data(myworkbook,
+"test1",
+c("A", "B", "C"),
+"right",
+"#,###.00"
+)
+format_data(myworkbook,
+"test1",
+C("D", "AA", "X"),
+"left",
+""
 )
 }
