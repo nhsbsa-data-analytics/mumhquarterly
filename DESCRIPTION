@@ -13,7 +13,8 @@ Imports:
     dplyr,
     DBI,
     data.table,
-    stringr
+    stringr,
+    dbplyr
 Remotes:
   nhsbsa-data-analytics/nhsbsaR
 License: MIT + file LICENSE
