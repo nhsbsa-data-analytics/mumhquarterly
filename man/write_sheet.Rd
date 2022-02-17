@@ -4,7 +4,7 @@
 \alias{write_sheet}
 \title{Easy helper for 'write_sheet'}
 \usage{
-write_sheet(workbook, sheetname, title, notes, dataset)
+write_sheet(workbook, sheetname, title, notes, dataset, column_a_width)
 }
 \arguments{
 \item{workbook}{the name of the workbook object created using the create_wb function}
@@ -16,6 +16,8 @@ write_sheet(workbook, sheetname, title, notes, dataset)
 \item{notes}{a list object of the notes to be included on the sheet}
 
 \item{dataset}{the name of the dataset to be written to the names sheet}
+
+\item{column_a_width}{the width you would like to assign to column A}
 }
 \description{
 Write data to selected sheet of base 'wb' created using create_wb function
@@ -25,5 +27,6 @@ write_sheet(myworkbook,
 "test1",
 "title1",
 c("note1", "note2", "note3", "note4"),
-mtcars)
+mtcars,
+10)
 }
