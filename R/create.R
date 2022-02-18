@@ -31,11 +31,20 @@
 #' @examples
 #' con <- nhsbsaR::con_nhsbsa(database = "DWCP")
 #'
-#' df <- create_tdim(con, start = 201904) %>%
-#'   create_org_dim(con, country = 1) %>%
-#'   create_drug_dim(con, bnf_codes = c("0401", "0402", "0403")) %>%
-#'   create_fact(con) %>%
-#'   collect
+#' tdim <- create_tdim(con, start = 202110)
+#' org <- create_org_dim(con, country = 1)
+#' drug <- create_drug_dim(con, bnf_codes = c("0401", "0402", "0403"))
+#' fact <- create_fact(con)
+#'
+#' df <- fact %>%
+#'   inner_join(tdim, by = "YEAR_MONTH") %>%
+#'   inner_join(org, by = c("PRESC_TYPE_PRNT" = "LVL_5_OUPDT",
+#'                         "PRESC_ID_PRNT" = "LVL_5_OU")) %>%
+#'   inner_join(drug, by = c("CALC_PREC_DRUG_RECORD_ID" = "RECORD_ID",
+#'                          "YEAR_MONTH" = "YEAR_MONTH")) %>%
+#'   group_by(FINANCIAL_QUARTER, SECTION_DESCR, BNF_SECTION, IDENTIFIED_FLAG) %>%
+#'   summarise(ITEM_COUNT = sum(ITEM_COUNT),
+#'            ITEM_PAY_DR_NIC = sum(ITEM_PAY_DR_NIC)/100)
 create_tdim <- function (
   con,
   start = 201504,
@@ -58,7 +67,7 @@ create_tdim <- function (
     mutate(
       FINANCIAL_QUARTER = FINANCIAL_YEAR %||% " Q" %||% FINANCIAL_QUARTER,
       # window functions to perform counts within groups
-      MONTH_COUNT = count(n())
+      MONTH_COUNT = n()
     ) %>%
     # filter to only full financial quarters
     filter(MONTH_COUNT == 3L, YEAR_MONTH >= start, YEAR_MONTH <= end)
@@ -73,15 +82,16 @@ create_org_dim <- function(con, country = 1) {
   country <- as.integer(country)
 
   dim <- tbl(con, from = in_schema("DIM", "CUR_LEVEL_5_FLAT_DIM")) %>%
-    select(
-      LVL_5_OUPDT,
-      LVL_5_OU
-    ) %>%
     filter(
       CUR_CTRY_OU %in% country,
       DATA_ADDED_BY_DENTAL == "N",
       PHARM_APP_CUR_IND_DESC == "UNKNOWN"
+    ) %>%
+    select(
+      LVL_5_OUPDT,
+      LVL_5_OU
     )
+
 
 }
 
@@ -94,6 +104,7 @@ create_drug_dim <- function (con, bnf_codes, ...) {
   bnf <- paste0("^(", paste0(bnf_codes, collapse = "|"), ")")
 
   dim <- tbl(con, from = in_schema("DIM","CDR_EP_DRUG_BNF_DIM")) %>%
+    filter(REGEXP_LIKE(PRESENTATION_BNF, bnf)) %>%
     select(
       YEAR_MONTH,
       RECORD_ID,
@@ -108,8 +119,8 @@ create_drug_dim <- function (con, bnf_codes, ...) {
       CHAPTER_DESCR,
       BNF_CHAPTER,
       ...
-    ) %>%
-    filter(REGEXP_LIKE(PRESENTATION_BNF, bnf))
+    )
+
 }
 
 #' @export
@@ -117,21 +128,6 @@ create_drug_dim <- function (con, bnf_codes, ...) {
 create_fact <- function (con) {
 
   fact <- tbl(con, in_schema("AML", "PX_FORM_ITEM_ELEM_COMB_FACT_AV")) %>%
-    select(
-      YEAR_MONTH,
-      PRESC_TYPE_PRNT,
-      PRESC_ID_PRNT,
-      CALC_PREC_DRUG_RECORD_ID,
-      IDENTIFIED_PATIENT_ID,
-      PDS_DOB,
-      PDS_GENDER
-    ) %>%
-    mutate(
-      IDENTIFIED_FLAG = case_when(
-        is.null(PDS_DOB) & PDS_GENDER == 0L ~ "N",
-        TRUE ~ "Y"
-      )
-    ) %>%
     filter(
       PAY_DA_END == "N", # excludes disallowed items
       PAY_ND_END == "N", # excludes not dispensed items
@@ -140,7 +136,24 @@ create_fact <- function (con) {
       OOHC_IND == 0L, # excludes out of hours dispensing
       PRIVATE_IND == 0L, # excludes private dispensers
       IGNORE_FLAG == "N", # excludes LDP dummy forms
-      PRESC_TYPE_PRNT %!in% c(8L, 54L)
+      PRESC_TYPE_PRNT %NOT IN% c(8L, 54L)
+    ) %>%
+    select(
+      YEAR_MONTH,
+      PRESC_TYPE_PRNT,
+      PRESC_ID_PRNT,
+      CALC_PREC_DRUG_RECORD_ID,
+      IDENTIFIED_PATIENT_ID,
+      PDS_DOB,
+      PDS_GENDER,
+      ITEM_COUNT,
+      ITEM_PAY_DR_NIC
+    ) %>%
+    mutate(
+      IDENTIFIED_FLAG = case_when(
+        is.null(PDS_DOB) & PDS_GENDER == 0L ~ "N",
+        TRUE ~ "Y"
+      )
     ) %>%
     group_by(
       YEAR_MONTH,
@@ -154,7 +167,8 @@ create_fact <- function (con) {
     ) %>%
     summarise(
       ITEM_COUNT = sum(ITEM_COUNT),
-      ITEM_PAY_DR_NIC = sum(ITEM_PAY_DR_NIC)
+      ITEM_PAY_DR_NIC = sum(ITEM_PAY_DR_NIC),
+      .groups = "drop"
     )
 
 }

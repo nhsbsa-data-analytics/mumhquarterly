@@ -53,9 +53,18 @@ patient ID level information.
 \examples{
 con <- nhsbsaR::con_nhsbsa(database = "DWCP")
 
-df <- create_tdim(con, start = 201904) \%>\%
-  create_org_dim(con, country = 1) \%>\%
-  create_drug_dim(con, bnf_codes = c("0401", "0402", "0403")) \%>\%
-  create_fact(con) \%>\%
-  collect
+tdim <- create_tdim(con, start = 202110)
+org <- create_org_dim(con, country = 1)
+drug <- create_drug_dim(con, bnf_codes = c("0401", "0402", "0403"))
+fact <- create_fact(con)
+
+df <- fact \%>\%
+  inner_join(tdim, by = "YEAR_MONTH") \%>\%
+  inner_join(org, by = c("PRESC_TYPE_PRNT" = "LVL_5_OUPDT",
+                        "PRESC_ID_PRNT" = "LVL_5_OU")) \%>\%
+  inner_join(drug, by = c("CALC_PREC_DRUG_RECORD_ID" = "RECORD_ID",
+                         "YEAR_MONTH" = "YEAR_MONTH")) \%>\%
+  group_by(FINANCIAL_QUARTER, SECTION_DESCR, BNF_SECTION, IDENTIFIED_FLAG) \%>\%
+  summarise(ITEM_COUNT = sum(ITEM_COUNT),
+           ITEM_PAY_DR_NIC = sum(ITEM_PAY_DR_NIC)/100)
 }
