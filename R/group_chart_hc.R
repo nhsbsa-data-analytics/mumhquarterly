@@ -4,7 +4,6 @@
 #'
 #' @description
 #' Create group chart in highcharter
-#' R `%in%` operator.
 #'
 #' @param data the data object to pass to the chart
 #' @param x the column in the data to show on the x axis
@@ -23,6 +22,7 @@
 #' @export
 #'
 #' @examples
+#' group_chart_hc()
 
 group_chart_hc <- function(
   data,
