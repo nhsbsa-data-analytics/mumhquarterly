@@ -2,6 +2,7 @@
 
 export("%!in%")
 export(available_data)
+export(create_metadata)
 export(create_wb)
 export(format_data)
 export(ons_national_pop)
