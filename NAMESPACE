@@ -3,6 +3,7 @@
 export("%!in%")
 export(available_data)
 export(create_wb)
+export(format_data)
 export(ons_national_pop)
 export(write_sheet)
 import(data.table)
