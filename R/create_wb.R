@@ -20,17 +20,17 @@ create_wb <- function(
 
   openxlsx::addWorksheet(wb,
                          sheetName = "Cover_sheet",
-                         gridLines = openxlsx_getOp("gridLines", FALSE))
+                         gridLines = FALSE)
 
   openxlsx::addWorksheet(wb,
                          sheetName = "Metadata",
-                         gridLines = openxlsx_getOp("gridLines", FALSE))
+                         gridLines = FALSE)
 
 
   for (i in sheets) {
     openxlsx::addWorksheet(wb,
                            sheetName = i,
-                           gridLines = openxlsx_getOp("gridLines", FALSE))
+                           gridLines = FALSE)
   }
 
   #set font to Arial

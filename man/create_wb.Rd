@@ -14,5 +14,5 @@ Create base workbook 'wb' and add sheets required
 }
 \examples{
 sheetNames <- c("test1","test2","test3")
-create_wb("C:/test.xlsx", sheetNames)
+create_wb(sheetNames)
 }
