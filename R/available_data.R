@@ -24,7 +24,6 @@
 #'#2020/2021
 #'
 #'@import dplyr
-#'@import dbplyr
 
 
 available_data <- function(database) {
