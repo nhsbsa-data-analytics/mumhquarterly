@@ -14,7 +14,11 @@ Imports:
     DBI,
     data.table,
     stringr,
-    dbplyr
+    dbplyr,
+    purrr,
+    tidyr,
+    highcharter,
+    jsonlite
 Remotes:
   nhsbsa-data-analytics/nhsbsaR
 License: MIT + file LICENSE
