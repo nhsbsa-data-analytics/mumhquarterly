@@ -5,6 +5,7 @@
 #' @description
 #' Create covid model chart in highcharter
 #'
+#' @param data a dataframe to be charted
 #' @param title the chart title (defaults to NULL)
 #'
 #' @import highcharter
@@ -15,11 +16,12 @@
 #' covid_chart_hc()
 
 covid_chart_hc <- function(
+  data,
   title = NULL
 ) {
-  chart <- highchart() %>% 
-    hc_chart(style = list(fontFamily = "Arial")) %>% 
-    hc_add_series(data = chartdf,
+  chart <- highchart() %>%
+    hc_chart(style = list(fontFamily = "Arial")) %>%
+    hc_add_series(data = data,
                   name = "99% prediction interval",
                   type = "arearange",
                   lineWidth = 0,
@@ -29,8 +31,8 @@ covid_chart_hc <- function(
                   # enableMouseTracking = FALSE,
                   hcaes(x = MONTH_START,
                         high = signif(PRED_ITEMS_99_UPR,3),
-                        low = signif(PRED_ITEMS_99_LWR,3))) %>% 
-    hc_add_series(data = chartdf,
+                        low = signif(PRED_ITEMS_99_LWR,3))) %>%
+    hc_add_series(data = data,
                   name = "95% prediction interval",
                   type = "arearange",
                   lineWidth = 0,
@@ -39,8 +41,8 @@ covid_chart_hc <- function(
                   dataLabels = list(enabled = FALSE),
                   hcaes(x = MONTH_START,
                         high = signif(PRED_ITEMS_95_UPR,3),
-                        low = signif(PRED_ITEMS_95_LWR,3))) %>% 
-    hc_add_series(data = chartdf,
+                        low = signif(PRED_ITEMS_95_LWR,3))) %>%
+    hc_add_series(data = data,
                   name = "Expected items",
                   type = "line",
                   dashStyle = "Dash",
@@ -49,7 +51,7 @@ covid_chart_hc <- function(
                   dataLabels = list(enabled = FALSE),
                   hcaes(x = MONTH_START,
                         y = signif(PRED_ITEMS_95_FIT,3))) %>%
-    hc_add_series(data = chartdf,
+    hc_add_series(data = data,
                   name = "Prescribed items",
                   type = "line",
                   lineWidth = 3,
@@ -57,23 +59,23 @@ covid_chart_hc <- function(
                   marker = list(enabled = FALSE),
                   dataLabels = list(enabled = FALSE),
                   hcaes(x = MONTH_START,
-                        y = signif(ITEM_COUNT,3))) %>% 
+                        y = signif(ITEM_COUNT,3))) %>%
     hc_xAxis(type = "datetime",
              dateTimeLabelFormats = list(month = "%b %y"),
-             title = list(text = "Month")) %>% 
+             title = list(text = "Month")) %>%
     hc_yAxis(title = list(text = "Volume"),
-             min = 0) %>% 
+             min = 0) %>%
     hc_title(text = title,
              style = list(fontSize = "16px",
-                          fontWeight = "bold")) %>% 
-    hc_legend(enabled = TRUE) %>% 
+                          fontWeight = "bold")) %>%
+    hc_legend(enabled = TRUE) %>%
     hc_tooltip(enabled = TRUE,
                shared = TRUE,
-               sort = TRUE) %>% 
-    hc_credits(enabled = TRUE) %>% 
+               sort = TRUE) %>%
+    hc_credits(enabled = TRUE) %>%
     hc_plotOptions(arearange = list(states = list(hover = list(enabled = FALSE))))
-  
+
   # explicit return
   return(chart)
-  
+
 }
