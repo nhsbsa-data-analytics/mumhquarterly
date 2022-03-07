@@ -32,7 +32,7 @@ save_data <- function (data, dir = ".", filename, ...) {
   stamp <- format(Sys.time(),format = "%Y%m%d%H%M%S")
 
   # check for extension in filename
-  if(grepl("*.*", filename)) {
+  if(grepl("\\.([[:alnum:]]+)$", filename)) {
     # if extension present return NULL
     ext <- NULL
   } else {
@@ -41,7 +41,7 @@ save_data <- function (data, dir = ".", filename, ...) {
   }
 
   # construct file path
-  path <- file.path(dir, paste0(filename,"-", stamp, ext))
+  path <- file.path(paste0(dir, "/data/", filename,"-", stamp, ext))
 
   # write file using data.table function. much faster than write.csv
   data.table::fwrite(data, path, ...)
