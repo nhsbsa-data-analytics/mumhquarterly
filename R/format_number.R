@@ -19,6 +19,8 @@ format_number <- function(x, percentage = FALSE, currency = FALSE) {
   #create blank wording option
   wording <- ""
 
+  x <- abs(x)
+
   #round to 3 sig figs
   x <- as.numeric(signif(x, 3))
   if(x >= 1000000000 ) {
