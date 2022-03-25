@@ -50,7 +50,7 @@ format_number <- function(x, percentage = FALSE, currency = FALSE) {
   }
 
   #add .0 if rounds to whole number > 10 and < 100
-  if((nchar(output) == 2) & percentage == TRUE) {
+  if((nchar(output) == 2)) {
     output <- as.character(paste0(output, ".0"))
   }
 
