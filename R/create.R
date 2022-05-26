@@ -81,7 +81,7 @@ create_org_dim <- function(con, country = 1) {
   # handle numeric args to pass as integer
   country <- as.integer(country)
 
-  dim <- tbl(con, from = in_schema("DIM", "CUR_LEVEL_5_FLAT_DIM")) %>%
+  dim <- tbl(con, from = in_schema("DIM", "CUR_EP_LEVEL_5_FLAT_DIM")) %>%
     filter(
       CUR_CTRY_OU %in% country,
       DATA_ADDED_BY_DENTAL == "N",
