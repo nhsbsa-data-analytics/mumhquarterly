@@ -19,10 +19,26 @@ covid_chart_hc <- function(
   data,
   title = NULL
 ) {
+  chart_data <- data %>%
+    mutate(
+      ACT = prettyNum(signif(ITEM_COUNT, 3), big.mark = ","),
+      EXP = prettyNum(signif(PRED_ITEMS_95_FIT, 3), big.mark = ","),
+      RANGE_95 = paste(
+        prettyNum(signif(PRED_ITEMS_95_LWR, 3), big.mark = ","),
+        "-",
+        prettyNum(signif(PRED_ITEMS_95_UPR, 3), big.mark = ",")
+      ),
+      RANGE_99 = paste(
+        prettyNum(signif(PRED_ITEMS_99_LWR, 3), big.mark = ","),
+        "-",
+        prettyNum(signif(PRED_ITEMS_99_UPR, 3), big.mark = ",")
+      )
+    )
+
   chart <- highchart() %>%
     hc_chart(style = list(fontFamily = "Arial")) %>%
     hc_add_series(
-      data = data,
+      data = chart_data,
       name = "99% prediction interval",
       type = "arearange",
       lineWidth = 0,
@@ -33,11 +49,12 @@ covid_chart_hc <- function(
       hcaes(
         x = MONTH_START,
         high = signif(PRED_ITEMS_99_UPR, 3),
-        low = signif(PRED_ITEMS_99_LWR, 3)
+        low = signif(PRED_ITEMS_99_LWR, 3),
+        tooltip = RANGE_99
       )
     ) %>%
     hc_add_series(
-      data = data,
+      data = chart_data,
       name = "95% prediction interval",
       type = "arearange",
       lineWidth = 0,
@@ -47,11 +64,12 @@ covid_chart_hc <- function(
       hcaes(
         x = MONTH_START,
         high = signif(PRED_ITEMS_95_UPR, 3),
-        low = signif(PRED_ITEMS_95_LWR, 3)
+        low = signif(PRED_ITEMS_95_LWR, 3),
+        tooltip = RANGE_95
       )
     ) %>%
     hc_add_series(
-      data = data,
+      data = chart_data,
       name = "Expected items",
       type = "line",
       dashStyle = "Dash",
@@ -59,10 +77,11 @@ covid_chart_hc <- function(
       marker = list(enabled = FALSE),
       dataLabels = list(enabled = FALSE),
       hcaes(x = MONTH_START,
-            y = signif(PRED_ITEMS_95_FIT, 3))
+            y = signif(PRED_ITEMS_95_FIT, 3),
+            tooltip = EXP)
     ) %>%
     hc_add_series(
-      data = data,
+      data = chart_data,
       name = "Prescribed items",
       type = "line",
       lineWidth = 3,
@@ -70,7 +89,8 @@ covid_chart_hc <- function(
       marker = list(enabled = FALSE),
       dataLabels = list(enabled = FALSE),
       hcaes(x = MONTH_START,
-            y = signif(ITEM_COUNT, 3))
+            y = signif(ITEM_COUNT, 3),
+            tooltip = ACT)
     ) %>%
     hc_xAxis(type = "datetime",
              dateTimeLabelFormats = list(month = "%b %y"),
@@ -96,7 +116,8 @@ covid_chart_hc <- function(
         var s = month + ' ' + year;
 
         $.each(this.points.reverse(), function () {
-            var number = new Number(this.y).toLocaleString('en-US', {minimumFractionDigits: 0});
+            var number = this.point.tooltip;
+
             s += '<br/><span style=\"color:' + this.series.color + '\">\u25CF</span> ' + this.series.name + ': ' +
                 '<b>' + number + '</b>';
         });
@@ -107,6 +128,7 @@ covid_chart_hc <- function(
     ) %>%
     hc_credits(enabled = TRUE) %>%
     hc_plotOptions(arearange = list(states = list(hover = list(enabled = FALSE))))
+
 
   # explicit return
   return(chart)
