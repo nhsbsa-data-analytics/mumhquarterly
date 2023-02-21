@@ -63,3 +63,61 @@ This flex layout has width of info box set to 100%.
 ### in-line
 
 `r mumhquarterly::infoBox_border("This is box 7", text = "this text goes on the left")` `r mumhquarterly::infoBox_border("This is box 8", text = "this text goes on the left")`
+
+### in-line with 50% width
+`r mumhquarterly::infoBox_border("This is box 7", text = "this text goes on the left", width = "50%")` `r mumhquarterly::infoBox_border("This is box 8", text = "this text goes on the left", width = "50%")`
+
+## testing info box no border
+
+```{r test_box_no_border }
+
+mumhquarterly::infoBox_no_border("This is box 8",
+                              text = "This is some text that might look like 2 million items in 2020/21")
+
+```
+
+placed in a proper div this code doesn't seem to be recognised as HTML. probably some setting to tweak to make this work
+
+## test info box in-line
+
+`r mumhquarterly::infoBox_no_border("This is box 9", text = "This is some more text that might say 2 million items")`
+
+## testing multi-column layout
+
+### `style="display: flex;"`
+
+This flex layout has width of info box set to 100%.
+
+::::{style="display: flex;"}
+
+:::{}
+`r mumhquarterly::infoBox_no_border("This is box 10", text = "this text goes on the left", width = "100%")`
+:::
+
+:::{}
+`r mumhquarterly::infoBox_no_border("This is box 11", text = "this text goes on the right", width = "100%")`
+:::
+
+::::
+
+### `style="display: grid;"`
+
+::::{style="display: grid;"}
+
+:::{}
+`r mumhquarterly::infoBox_no_border("This is box 12", text = "this text goes on the left")`
+:::
+
+:::{}
+`r mumhquarterly::infoBox_no_border("This is box 13", text = "this text goes on the right")`
+:::
+
+::::
+
+### in-line
+
+`r mumhquarterly::infoBox_no_border("This is box 14", text = "this text goes on the left")` `r mumhquarterly::infoBox_no_border("This is box 15", text = "this text goes on the left")`
+
+### in-line with 49% width
+`r mumhquarterly::infoBox_no_border("This is box 14", text = "this text goes on the left", width = "49%")` `r mumhquarterly::infoBox_no_border("This is box 15", text = "this text goes on the left", width = "49%")`
+
