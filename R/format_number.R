@@ -19,17 +19,21 @@ format_number <- function(x, percentage = FALSE, currency = FALSE) {
   #create blank wording option
   wording <- ""
 
+  x <- abs(x)
+
   #round to 3 sig figs
-  x <- as.numeric(signif(x, 3))
+  #x <- as.numeric(signif(x, 3))
   if(x >= 1000000000 ) {
     output <- signif(x/1000000000,3)
     wording <- "billion"
   } else if(x >= 1000000) {
     output <- signif(x/1000000,3)
     wording <- "million"
-  } else {
+  } else if(x >= 1) {
     #create comma separated value for number < 1 million
     output <- prettyNum(signif(x, 3), big.mark = ",")
+  } else {
+    output <- x
   }
 
   #round to 2 decimal places for number < 1
@@ -48,7 +52,7 @@ format_number <- function(x, percentage = FALSE, currency = FALSE) {
   }
 
   #add .0 if rounds to whole number > 10 and < 100
-  if((nchar(output) == 2) & percentage == TRUE) {
+  if((nchar(output) == 2)) {
     output <- as.character(paste0(output, ".0"))
   }
 
