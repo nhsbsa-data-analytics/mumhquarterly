@@ -1,3 +1,5 @@
+#' Build infoBox with a border
+#'
 #' @description Create an info box with solid colour to us in a R markdown file
 #'
 #' @param header The header text (h4) to be given to the infoBox
@@ -10,7 +12,6 @@
 #'
 #' @examples
 #' `r infoBox_no_border()`
-
 infoBox_no_border <- function(
     header = "Header here",
     text = "More text here",
