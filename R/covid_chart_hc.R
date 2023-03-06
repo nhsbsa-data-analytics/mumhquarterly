@@ -15,23 +15,23 @@
 #' @examples
 #' covid_chart_hc()
 
-covid_chart_hc <- function(
+covid_chart_hc_new <- function(
   data,
   title = NULL
 ) {
   chart_data <- data %>%
     mutate(
-      ACT = prettyNum(signif(ITEM_COUNT, 3), big.mark = ","),
-      EXP = prettyNum(signif(PRED_ITEMS_95_FIT, 3), big.mark = ","),
+      ACT = prettyNum(signif(total_items, 3), big.mark = ","),
+      EXP = prettyNum(signif(mean_fit, 3), big.mark = ","),
       RANGE_95 = paste(
-        prettyNum(signif(PRED_ITEMS_95_LWR, 3), big.mark = ","),
+        prettyNum(signif(PIlwr, 3), big.mark = ","),
         "-",
-        prettyNum(signif(PRED_ITEMS_95_UPR, 3), big.mark = ",")
+        prettyNum(signif(PIupr, 3), big.mark = ",")
       ),
       RANGE_99 = paste(
-        prettyNum(signif(PRED_ITEMS_99_LWR, 3), big.mark = ","),
+        prettyNum(signif(PIlwr99, 3), big.mark = ","),
         "-",
-        prettyNum(signif(PRED_ITEMS_99_UPR, 3), big.mark = ",")
+        prettyNum(signif(PIupr99, 3), big.mark = ",")
       )
     )
 
@@ -47,9 +47,9 @@ covid_chart_hc <- function(
       dataLabels = list(enabled = FALSE),
       # enableMouseTracking = FALSE,
       hcaes(
-        x = MONTH_START,
-        high = signif(PRED_ITEMS_99_UPR, 3),
-        low = signif(PRED_ITEMS_99_LWR, 3),
+        x = YEAR_MONTH_string,
+        high = signif(PIupr99, 3),
+        low = signif(PIlwr99, 3),
         tooltip = RANGE_99
       )
     ) %>%
@@ -62,9 +62,9 @@ covid_chart_hc <- function(
       marker = list(enabled = FALSE),
       dataLabels = list(enabled = FALSE),
       hcaes(
-        x = MONTH_START,
-        high = signif(PRED_ITEMS_95_UPR, 3),
-        low = signif(PRED_ITEMS_95_LWR, 3),
+        x = YEAR_MONTH_string,
+        high = signif(PIupr, 3),
+        low = signif(PIlwr, 3),
         tooltip = RANGE_95
       )
     ) %>%
@@ -76,8 +76,8 @@ covid_chart_hc <- function(
       color = "#231f20",
       marker = list(enabled = FALSE),
       dataLabels = list(enabled = FALSE),
-      hcaes(x = MONTH_START,
-            y = signif(PRED_ITEMS_95_FIT, 3),
+      hcaes(x = YEAR_MONTH_string,
+            y = signif(mean_fit, 3),
             tooltip = EXP)
     ) %>%
     hc_add_series(
@@ -88,8 +88,8 @@ covid_chart_hc <- function(
       color = "#005EB8",
       marker = list(enabled = FALSE),
       dataLabels = list(enabled = FALSE),
-      hcaes(x = MONTH_START,
-            y = signif(ITEM_COUNT, 3),
+      hcaes(x = YEAR_MONTH_string,
+            y = signif(total_items, 3),
             tooltip = ACT)
     ) %>%
     hc_xAxis(type = "datetime",
