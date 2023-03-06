@@ -25,7 +25,9 @@ infoBox_no_border <- function(
     margin-bottom: 20px;
     width: ",width,";
     display: inline-block;
-    vertical-align: top;'>
+    vertical-align: top;
+    flex: 1;
+    height: 100%;'>
   <h4 style = 'color: ", fontColour, ";
   font-weight: bold;
   font-size: 18px;
