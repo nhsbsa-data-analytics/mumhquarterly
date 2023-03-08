@@ -20,55 +20,56 @@ covid_chart_hc <- function(
   title = NULL
 ) {
   chart_data <- data %>%
-    mutate(
-      ACT = prettyNum(signif(ITEM_COUNT, 3), big.mark = ","),
-      EXP = prettyNum(signif(PRED_ITEMS_95_FIT, 3), big.mark = ","),
+    dplyr::mutate(
+      ACT = prettyNum(signif(total_items, 3), big.mark = ","),
+      EXP = prettyNum(signif(mean_fit, 3), big.mark = ","),
       RANGE_95 = paste(
-        prettyNum(signif(PRED_ITEMS_95_LWR, 3), big.mark = ","),
+        prettyNum(signif(PIlwr, 3), big.mark = ","),
         "-",
-        prettyNum(signif(PRED_ITEMS_95_UPR, 3), big.mark = ",")
+        prettyNum(signif(PIupr, 3), big.mark = ",")
       ),
       RANGE_99 = paste(
-        prettyNum(signif(PRED_ITEMS_99_LWR, 3), big.mark = ","),
+        prettyNum(signif(PIlwr99, 3), big.mark = ","),
         "-",
-        prettyNum(signif(PRED_ITEMS_99_UPR, 3), big.mark = ",")
-      )
+        prettyNum(signif(PIupr99, 3), big.mark = ",")
+      ),
+      MONTH_START = as.Date(paste0(YEAR_MONTH_string, "01"), format = "%Y%m%d")
     )
 
   chart <- highchart() %>%
-    hc_chart(style = list(fontFamily = "Arial")) %>%
-    hc_add_series(
+    highcharter::hc_chart(style = list(fontFamily = "Arial")) %>%
+    highcharter::hc_add_series(
       data = chart_data,
       name = "99% prediction interval",
       type = "arearange",
       lineWidth = 0,
-      color = rgb(66, 85, 99, alpha = 70, maxColorValue = 255),
+      color = "#425563",
       marker = list(enabled = FALSE),
       dataLabels = list(enabled = FALSE),
       # enableMouseTracking = FALSE,
-      hcaes(
+      highcharter::hcaes(
         x = MONTH_START,
-        high = signif(PRED_ITEMS_99_UPR, 3),
-        low = signif(PRED_ITEMS_99_LWR, 3),
+        high = signif(PIupr99, 3),
+        low = signif(PIlwr99, 3),
         tooltip = RANGE_99
       )
     ) %>%
-    hc_add_series(
+    highcharter::hc_add_series(
       data = chart_data,
       name = "95% prediction interval",
       type = "arearange",
       lineWidth = 0,
-      color = rgb(66, 85, 99, alpha = 140, maxColorValue = 255),
+      color = "#b3bbc1",
       marker = list(enabled = FALSE),
       dataLabels = list(enabled = FALSE),
       hcaes(
         x = MONTH_START,
-        high = signif(PRED_ITEMS_95_UPR, 3),
-        low = signif(PRED_ITEMS_95_LWR, 3),
+        high = signif(PIupr, 3),
+        low = signif(PIlwr, 3),
         tooltip = RANGE_95
       )
     ) %>%
-    hc_add_series(
+    highcharter::hc_add_series(
       data = chart_data,
       name = "Expected items",
       type = "line",
@@ -77,10 +78,10 @@ covid_chart_hc <- function(
       marker = list(enabled = FALSE),
       dataLabels = list(enabled = FALSE),
       hcaes(x = MONTH_START,
-            y = signif(PRED_ITEMS_95_FIT, 3),
+            y = signif(mean_fit, 3),
             tooltip = EXP)
     ) %>%
-    hc_add_series(
+    highcharter::hc_add_series(
       data = chart_data,
       name = "Prescribed items",
       type = "line",
@@ -89,20 +90,20 @@ covid_chart_hc <- function(
       marker = list(enabled = FALSE),
       dataLabels = list(enabled = FALSE),
       hcaes(x = MONTH_START,
-            y = signif(ITEM_COUNT, 3),
+            y = signif(total_items, 3),
             tooltip = ACT)
     ) %>%
-    hc_xAxis(type = "datetime",
+    highcharter::hc_xAxis(type = "datetime",
              dateTimeLabelFormats = list(month = "%b %y"),
              title = list(text = "Month")) %>%
-    hc_yAxis(title = list(text = "Volume"),
+    highcharter::hc_yAxis(title = list(text = "Volume"),
              min = 0) %>%
-    hc_title(text = title,
+    highcharter::hc_title(text = title,
              style = list(fontSize = "16px",
                           fontWeight = "bold")) %>%
-    hc_legend(enabled = TRUE,
+    highcharter::hc_legend(enabled = TRUE,
               reversed = TRUE) %>%
-    hc_tooltip(
+    highcharter::hc_tooltip(
       enabled = TRUE,
       shared = TRUE,
       useHTML = TRUE,
@@ -126,8 +127,8 @@ covid_chart_hc <- function(
     }"
       )
     ) %>%
-    hc_credits(enabled = TRUE) %>%
-    hc_plotOptions(arearange = list(states = list(hover = list(enabled = FALSE))))
+    highcharter::hc_credits(enabled = TRUE) %>%
+    highcharter::hc_plotOptions(arearange = list(states = list(hover = list(enabled = FALSE))))
 
 
   # explicit return
