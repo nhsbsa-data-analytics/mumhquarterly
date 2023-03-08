@@ -43,7 +43,7 @@ covid_chart_hc <- function(
       name = "99% prediction interval",
       type = "arearange",
       lineWidth = 0,
-      color = rgb(66, 85, 99, alpha = 70, maxColorValue = 255),
+      color = "#425563",
       marker = list(enabled = FALSE),
       dataLabels = list(enabled = FALSE),
       # enableMouseTracking = FALSE,
@@ -59,7 +59,7 @@ covid_chart_hc <- function(
       name = "95% prediction interval",
       type = "arearange",
       lineWidth = 0,
-      color = rgb(66, 85, 99, alpha = 140, maxColorValue = 255),
+      color = "#b3bbc1",
       marker = list(enabled = FALSE),
       dataLabels = list(enabled = FALSE),
       hcaes(
