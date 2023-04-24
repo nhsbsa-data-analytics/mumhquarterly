@@ -18,7 +18,7 @@ knitr::opts_chunk$set(
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of mumhquarterly is to bring together all of the functions required for production of the Medicines Used in Mental Health quarterly Official Statistics publication by the NHSBSA with accompanying documentation and unit tests in line with RAP best practice.
+The goal of mumhquarterly is to bring together all of the functions required for production of the Medicines Used in Mental Health quarterly Official Statistics publication by the NHSBSA with accompanying documentation and unit tests in line with RAP best practice. This package is a work in progress and will be replaced by several new packages designed to hold functions used in the creation of our Official Statistics publications.
 
 ## Installation
 
