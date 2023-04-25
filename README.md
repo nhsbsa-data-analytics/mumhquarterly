@@ -1,60 +1,59 @@
+---
+output: github_document
+---
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+```
 
 # mumhquarterly
 
 <!-- badges: start -->
 <!-- badges: end -->
 
-The goal of mumhquarterly is to bring together all of the functions
-required for production of the Medicines Used in Mental Health quarterly
-Official Statistics publication by the NHSBSA with accompanying
-documentation and unit tests in line with RAP best practice.
+This code is published as part of the NHSBSA Official Statistics team's commitment to open code and transparency in how we produce our publications. The mumhquarterly package is owned and maintained by the Official Statistics team.
+
+# Introduction
+
+The goal of mumhquarterly is to bring together all of the functions required for production of the [Medicines Used in Mental Health quarterly Official Statistics publication](https://www.nhsbsa.nhs.uk/statistical-collections/medicines-used-mental-health-england) by the NHSBSA with accompanying documentation in line with reproducible analytical pipeline (RAP) best practice. These functions are designed to be used as part of the [MUMH quarterly RAP](https://github.com/nhsbsa-data-analytics/mumh-quarterly-rap), also available on GitHub.
+
+This package is a work in progress and will be replaced by several new packages designed to hold functions used in the creation of our Official Statistics publications. The current mumhquarterly package does not contain unit testing, and this will not be added due to the move to the new packages.
 
 ## Installation
 
-You can install the development version of mumhquarterly from
-[GitHub](https://github.com/) with:
+You can install the development version of mumhquarterly from [GitHub](https://github.com/) with:
 
 ``` r
 # install.packages("devtools")
 devtools::install_github("nhsbsa-data-analytics/mumhquarterly")
 ```
+You can also view the [source code for the mumhquarterly package](https://github.com/nhsbsa-data-analytics/mumhquarterly) on GitHub.
 
-# everything below this is auto generated garbage
+# 
 
-## Example
+## Functions guide
 
-This is a basic example which shows you how to solve a common problem:
+All of the functions can be found in the [`R` folder](https://github.com/nhsbsa-data-analytics/mumhquarterly/tree/main/R). 
 
-``` r
-# library(mumhquarterly)
-## basic example code
-```
+These functions cover several different task areas. Each has an example within the documentation at the top of each function's `.R` file. Below is a guide to what the functions are used for:
 
-What is special about using `README.Rmd` instead of just `README.md`?
-You can include R chunks like so:
+1. Functions for getting and analysing the required data, including `available_data()`, `get_dispensing_days()`, `ons_national_pop()`, `create()`, `import_data()`
 
-``` r
-summary(cars)
-#>      speed           dist       
-#>  Min.   : 4.0   Min.   :  2.00  
-#>  1st Qu.:12.0   1st Qu.: 26.00  
-#>  Median :15.0   Median : 36.00  
-#>  Mean   :15.4   Mean   : 42.98  
-#>  3rd Qu.:19.0   3rd Qu.: 56.00  
-#>  Max.   :25.0   Max.   :120.00
-```
+2. Functions for saving and formatting outputs such as charts and excel summary tables, including `covid_chart_hc()`, `create_metadata()`, `create_wb()`, `format_data()`, `format_number()`, `group_chart_hc()`, `infoBox_border()`, `infoBox_no_border()`, `save_data()`, `write_sheet()`
 
-You’ll still need to render `README.Rmd` regularly, to keep `README.md`
-up-to-date. `devtools::build_readme()` is handy for this. You could also
-use GitHub Actions to re-render `README.Rmd` every time you push. An
-example workflow can be found here:
-<https://github.com/r-lib/actions/tree/v1/examples>.
+3. Miscellaneous functions, including `mumh_options()`, `notin()`, `apply_sdc()`, `utils()`
 
-You can also embed plots, for example:
+# Contributing
 
-<img src="man/figures/README-pressure-1.png" width="100%" />
+Contributions are not currently being accepted for the mumhquarterly package. If this changes, a contributing guide will be made available.
 
-In that case, don’t forget to commit and push the resulting figure
-files, so they display on GitHub and CRAN.
+# License
+
+The mumhquarterly package repository, including associated documentation, is released under the MIT license. Details can be found in the `LICENSE` file.
