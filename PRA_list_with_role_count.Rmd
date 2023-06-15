@@ -52,16 +52,12 @@ pra_list_org_extraction <-function (data,org) {
 pra_filtered <- data |>
   dplyr::filter( Organisation == org) |>
   dplyr::group_by(Title) |>
-  dplyr::summarise("Individuals per Role" = n()) |>
+  dplyr::summarise("Individuals per Role" = dplyr::n()) |>
   dplyr::arrange(Title)
 
 }
 
-
-
-
-###########-------------- Input of publication title needed------------------------###################
-name_of_publication <- "PLEASE SPECIFY PUBLICATION AND YEAR IN FIRST CODE CHUNK"
+name_of_publication <- "Prescription Cost Analysis - England 2022/23"
 
 
 ## extraction of data from excel file into a tibble 
@@ -70,7 +66,7 @@ md_pra_draft <- find_pra_list ()
 
 ```
 
-#`r name_of_publication`
+`r name_of_publication`
 
 As per the ‘Statement of Compliance with Pre-release Access to Statistics Order 2008’, in addition to staff in the NHS Business Services Authority (NHSBSA) who are responsible for the production and quality assurance of the statistics, below is a list of job titles and organisations of people who have been granted 24 hours pre-release access:
 
@@ -82,7 +78,6 @@ As per the ‘Statement of Compliance with Pre-release Access to Statistics Orde
 
 
 ```{r}
-
 
 ## extracted data from tibble being filtered for NHSBSA members, summed into number of individuals per job title and arranged alphabetically
 
@@ -121,8 +116,7 @@ The staff roles listed below are directly involved in the production and distrib
 
 ```{r}
 
-df <- data.frame(title = c("lead", "ssto", "sto"), "individuals per role" = c(1, 2, 2))
-
+df <- data.frame(title = c("Statistical Officer","Senior Statistical Officer", "Statistical Publication Lead"), "Individuals per Role" = c(2, 2, 1))
 
 
 knitr::kable (df) 
